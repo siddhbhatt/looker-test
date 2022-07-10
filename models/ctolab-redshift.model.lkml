@@ -11,12 +11,36 @@ include: "/views/**/*.view"
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
 
-datagroup: ctolab_redshift_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+# datagroup: ctolab_redshift_default_datagroup {
+#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   max_cache_age: "1 hour"
+# }
+
+# persist_with: ctolab_redshift_default_datagroup
+
+############ Caching Logic ############
+
+persist_with: covid_data
+
+### PDT Timeframes
+
+datagroup: covid_data {
+  max_cache_age: "12 hours"
+  sql_trigger:SELECT MAX(id) FROM etl_log;;
 }
 
-persist_with: ctolab_redshift_default_datagroup
+# datagroup: covid_data {
+#   max_cache_age: "12 hours"
+#   sql_trigger:
+#     SELECT min(max_date) as max_date
+#     FROM
+#     (
+#       SELECT max(cast(date as date)) as max_date FROM `bigquery-public-data.covid19_nyt.us_counties`
+#       UNION ALL
+#       SELECT max(cast(date as date)) as max_date FROM `bigquery-public-data.covid19_open_data.compatibility_view`
+#     ) a
+#   ;;
+# }
 
 # Explores allow you to join together different views (database tables) based on the
 # relationships between fields. By joining a view into an Explore, you make those
@@ -29,16 +53,16 @@ persist_with: ctolab_redshift_default_datagroup
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
 
-# explore: connection_reg_r3 {}
+explore: connection_reg_r3 {}
 
-# explore: country_region {}
+explore: country_region {}
 
-# explore: hospital_bed_summary {}
+explore: hospital_bed_summary {}
 
-# explore: italy_province {}
+explore: italy_province {}
 
-# explore: italy_region {}
+explore: italy_region {}
 
-# explore: population_demographics {}
+explore: population_demographics {}
 
-# explore: state_region {}
+explore: state_region {}
