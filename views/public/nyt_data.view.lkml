@@ -9,7 +9,7 @@ view: nyt_data {
                 --mofifying the FIPS code to match other data
                 when county = 'New York City' then 36125
                 when county = 'Kansas City' then 29095
-                else cast(county_fips_code as int64) end as fips
+                else cast(county_fips_code as integer) end as fips
         from public.us_counties;;
     sql_trigger_value: SELECT COUNT(*) FROM public.us_counties ;;
   }
