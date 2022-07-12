@@ -9,6 +9,7 @@ include: "//covid19-1/dashboards/*"
 
 view: covid_combined {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     sql:
     --use the NYT data for all US data, but join with JHU to get lat/lon for the fips
@@ -555,7 +556,7 @@ view: covid_combined {
     description: "Filter on Measurement Date or Days Since First Outbreak to see the new cases during the selected timeframe, otherwise the sum of all the new cases for each day will be displayed"
     label: "Confirmed Cases per Million (New)"
     type: number
-    sql: 1000000*${confirmed_new} / nullif(${population_by_county_state_country.sum_population},0) ;;
+    sql: 1000000*${confirmed_new} / nullif(${population_demographics.sum_population},0) ;;
     value_format_name: decimal_0
     drill_fields: [drill*]
     link: {
@@ -640,7 +641,7 @@ view: covid_combined {
       label: "Confirmed Cases per Million (Running Total)"
       description: "Filter on Measurement Date or Days Since First Outbreak to see the running total on a specific date, don't use with a range of dates or else the results will show the sum of the running totals for each day in that timeframe. If no dates are selected the most recent record will be used."
       type: number
-      sql: 1000000*${confirmed_running_total} / nullif(${population_by_county_state_country.sum_population},0) ;;
+      sql: 1000000*${confirmed_running_total} / nullif(${population_demographics.sum_population},0) ;;
       value_format_name: decimal_0
       drill_fields: [drill*]
       link: {
@@ -758,7 +759,7 @@ view: covid_combined {
       description: "Filter on Measurement Date or Days Since First Outbreak to see the new cases during the selected timeframe, otherwise the sum of all the new cases for each day will be displayed"
       label: "Deaths per Million (New)"
       type: number
-      sql: 1000000*${deaths_new} / nullif(${population_by_county_state_country.sum_population},0) ;;
+      sql: 1000000*${deaths_new} / nullif(${population_demographics.sum_population},0) ;;
       value_format_name: decimal_0
       drill_fields: [drill*]
       link: {
@@ -818,7 +819,7 @@ view: covid_combined {
       description: "Filter on Measurement Date or Days Since First Outbreak to see the running total on a specific date, don't use with a range of dates or else the results will show the sum of the running totals for each day in that timeframe. If no dates are selected the most recent record will be used."
 
       type: number
-      sql: 1000000*${deaths_running_total} / nullif(${population_by_county_state_country.sum_population},0) ;;
+      sql: 1000000*${deaths_running_total} / nullif(${population_demographics.sum_population},0) ;;
       value_format_name: decimal_0
       drill_fields: [drill*]
       link: {

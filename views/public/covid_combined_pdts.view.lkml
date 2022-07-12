@@ -7,6 +7,7 @@
 
 view: max_date_covid {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     explore_source: covid_combined {
       column: max_date {}
@@ -25,6 +26,7 @@ view: max_date_covid {
 
 view: max_date_tracking_project {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     explore_source: covid_combined {
       column: max_date { field: covid_tracking_project.max_date }
@@ -105,6 +107,7 @@ view: fips_rank {
 view: prior_days_cases_covid {
   view_label: "Trends"
   derived_table: {
+    distribution_style: all
     sql_trigger_value: SELECT max(cast(measurement_date as date)) as max_date FROM ${covid_combined.SQL_TABLE_NAME} ;;
     explore_source: covid_combined {
       column: measurement_date {field: covid_combined.measurement_date}

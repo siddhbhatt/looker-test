@@ -2,6 +2,7 @@
 
 view: covid_tracking_project {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     sql:
       WITH ctp AS (

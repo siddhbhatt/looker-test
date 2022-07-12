@@ -6,7 +6,9 @@ include: "/views/**/*.view"
 # include: "//covid19-1/views/country_region.view"
 
 # include: "//covid19-1/dashboards/*"
-# include: "//covid19-1/explores/*"
+include: "/explores/*"
+
+include: "//covid19-1/assets/*"
 
 # Datagroups define a caching policy for an Explore. To learn more,
 # use the Quick Help panel on the right to see documentation.
@@ -53,7 +55,7 @@ datagroup: covid_data {
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
 
-explore: connection_reg_r3 {}
+# explore: connection_reg_r3 {}
 
 explore: country_region {}
 
