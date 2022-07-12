@@ -3,7 +3,7 @@
 view: nyt_data {
   derived_table: {
     distribution_style: all
-    sql: select * except(county, county_fips_code),
+    sql: select state_code, confirmed_cases, deaths, date,
            case when county = 'Unknown' then concat(county,' - ',state_name) else county end as county,
             case when county = 'Unknown'then NULL
                 --mofifying the FIPS code to match other data
