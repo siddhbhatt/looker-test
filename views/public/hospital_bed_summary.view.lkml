@@ -128,7 +128,7 @@ view: hospital_bed_summary {
     datagroup_trigger: covid_data
     #combining NYC fips codes to match other data
     sql:  SELECT x, y, objectid, hospital_name, hospital_type, hq_address, hq_address1, hq_city, hq_state, hq_zip_code, county_name, state_name, state_fips, cnty_fips, num_licensed_beds, num_staffed_beds, num_icu_beds, bed_utilization,
-            case when fips in ( 36005, 36081, 36061, 36047, 36085 ) then 36125 else fips end as fips
+            case when cast(fips as integer) in ( 36005, 36081, 36061, 36047, 36085 ) then 36125 else cast(fips as integer) end as fips
             FROM public.hospital_bed_summary
             WHERE hospital_type not in ('Rehabilitation Hospital', 'Psychiatric Hospital', 'Religious Non-Medical Health Care Institution') ;;
   }

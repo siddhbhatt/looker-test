@@ -59,10 +59,12 @@ explore: country_region {}
 
 explore: hospital_bed_summary {}
 
-explore: italy_province {}
+# explore: italy_province {}
 
-explore: italy_region {}
+# explore: italy_region {}
 
 explore: population_demographics {}
 
 explore: state_region {}
+
+explore: nyt_data {}
