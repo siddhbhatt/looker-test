@@ -407,7 +407,7 @@ WHERE cast(measurement_date AS DATE) <= (
   dimension: days_since_max_date {
     description: "The number of days that have passed since the maximum date in the dataset (i.e. how many days of data are we missing here)"
     type:  number
-    sql: date_diff(${measurement_raw},${max_date_covid.max_date_raw},day) ;;
+    sql: datediff(day,${measurement_raw},${max_date_covid.max_date_raw}) ;;
   }
 
 #### Days since X Case ####
@@ -464,25 +464,25 @@ WHERE cast(measurement_date AS DATE) <= (
   dimension: days_since_first_outbreak_county {
     hidden: yes
     type:  number
-    sql: date_diff(${measurement_raw},${county_outbreak_start_date},  day) + 1 ;;
+    sql: datediff(day,${measurement_raw},${county_outbreak_start_date}) + 1 ;;
   }
 
   dimension: days_since_first_outbreak_state {
     hidden: yes
     type:  number
-    sql: date_diff(${measurement_raw},${state_outbreak_start_date},  day) + 1 ;;
+    sql: datediff(day,${measurement_raw},${state_outbreak_start_date}) + 1 ;;
   }
 
   dimension: days_since_first_outbreak_country {
     hidden: yes
     type:  number
-    sql: date_diff(${measurement_raw},${country_outbreak_start_date},  day) + 1 ;;
+    sql: datediff(day,${measurement_raw},${country_outbreak_start_date}) + 1 ;;
   }
 
   dimension: days_since_first_outbreak_system {
     hidden: yes
     type:  number
-    sql: date_diff(${measurement_raw},${system_outbreak_start_date},  day) + 1 ;;
+    sql: datediff(day,${measurement_raw},${system_outbreak_start_date}) + 1 ;;
   }
 
   dimension: days_since_first_outbreak {
