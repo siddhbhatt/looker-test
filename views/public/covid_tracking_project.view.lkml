@@ -29,7 +29,7 @@ view: covid_tracking_project {
             pending as pending_cumulative,
             pending - coalesce(LAG(pending, 1) OVER (PARTITION BY state  ORDER BY date ASC),0) as pending_new_cases,
             negative as negative_cumulative,
-            negative - coalesce(LAG(negative, 1) OVER (PARTITION BY state  ORDER BY date ASC),0) as negative_new_cases,
+            negative - coalesce(LAG(negative, 1) OVER (PARTITION BY state  ORDER BY date ASC),0) as negative_new_cases
 
       FROM public.covid19_tracking_project)
       SELECT * FROM ctp
