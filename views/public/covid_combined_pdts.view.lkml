@@ -192,7 +192,7 @@ view: prior_days_cases_covid {
     primary_key: yes
     hidden: yes
     type: string
-    sql: concat(${pre_pk},${measurement_date}) ;;
+    sql: (${pre_pk}||${measurement_date}) ;;
   }
 
   dimension_group: measurement {
@@ -873,7 +873,7 @@ view: kpis_by_entity_by_date {
   dimension: pk {
     primary_key: yes
     hidden: yes
-    sql: concat(${entity},cast(${measurement_date} as string)) ;;
+    sql: (${entity}||cast(${measurement_date} as string)) ;;
   }
 
   dimension_group: measurement {
@@ -979,7 +979,7 @@ view: kpis_by_entity_by_date {
   dimension: concat_parameters {
     type: string
     # hidden: yes
-    sql: concat({% parameter metric_type %},'|',{% parameter metric_value %},'|',{% parameter metric %}) ;;
+    sql: ({% parameter metric_type %}||'|'||{% parameter metric_value %}||'|'||{% parameter metric %}) ;;
   }
 
   measure: kpi_to_select {

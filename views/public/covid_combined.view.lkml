@@ -146,7 +146,7 @@ WHERE cast(measurement_date AS DATE) <= (
   dimension: pre_pk {
     hidden: yes
     type: string
-    sql: concat(coalesce(${county},''), coalesce(${province_state},''), coalesce(case when ${TABLE}.country_region in ('US','UK')
+    sql: (coalesce(${county},'')||coalesce(${province_state},'')|| coalesce(case when ${TABLE}.country_region in ('US','UK')
       then ${TABLE}.country_region else ${country_region} end,'')) ;;
   }
 
@@ -154,7 +154,7 @@ WHERE cast(measurement_date AS DATE) <= (
     primary_key: yes
     hidden: yes
     type: string
-    sql: concat(${pre_pk},${measurement_raw}) ;;
+    sql: (${pre_pk}||${measurement_raw}) ;;
   }
 
   dimension: combined_key {
@@ -318,20 +318,20 @@ WHERE cast(measurement_date AS DATE) <= (
     hidden: yes
     group_label: "Location"
     label: "County (Full)"
-    sql: concat(coalesce(concat(${county},', '),''),coalesce(concat(${province_state},', ')),${country_region}) ;;
+    sql: (coalesce((${county}||', '),'')||coalesce((${province_state}||', '))||${country_region}) ;;
   }
 
   dimension: state_full {
     hidden: yes
     group_label: "Location"
     label: "State (Full)"
-    sql: concat(coalesce(concat(${province_state},', ')),${country_region}) ;;
+    sql: (coalesce((${province_state}||', '))||${country_region}) ;;
   }
 
   dimension: fips_as_string {
     hidden: yes
     type: string
-    sql: CASE WHEN LENGTH(cast(${fips} as varachar)) = 4 THEN CONCAT('0',${fips})
+    sql: CASE WHEN LENGTH(cast(${fips} as varachar)) = 4 THEN ('0'||${fips})
       ELSE cast(${fips} as varchar) END;;
   }
 
@@ -342,7 +342,7 @@ WHERE cast(measurement_date AS DATE) <= (
     group_label: "Location"
     label: "Country (Ordered)"
     description: "Ordered by confirmed running total of cases"
-    sql: concat(cast(${country_rank.rank} as varchar),'-',${country_raw}) ;;
+    sql: (cast(${country_rank.rank} as varchar)||'-'||${country_raw}) ;;
     html: {{ country_region._value }} ;;
   }
 
@@ -350,7 +350,7 @@ WHERE cast(measurement_date AS DATE) <= (
     group_label: "Location"
     label: "State (Ordered)"
     description: "Ordered by confirmed running total of cases"
-    sql: concat(cast(${state_rank.rank} as varchar),'-',${province_state}) ;;
+    sql: (cast(${state_rank.rank} as varchar)||'-'||${province_state}) ;;
     html: {{ province_state._value }} ;;
   }
 
@@ -358,7 +358,7 @@ WHERE cast(measurement_date AS DATE) <= (
     group_label: "Location"
     label: "County (Ordered)"
     description: "Ordered by confirmed running total of cases"
-    sql: concat(cast(${fips_rank.rank} as varchar),'-',${fips}) ;;
+    sql: (cast(${fips_rank.rank} as varchar)||'-'||${fips}) ;;
     html: {{ county._value }} ;;
   }
 
