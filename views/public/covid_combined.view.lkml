@@ -13,72 +13,128 @@ view: covid_combined {
     datagroup_trigger: covid_data
     sql:
     --use the NYT data for all US data, but join with JHU to get lat/lon for the fips
-   SELECT * FROM
-    (SELECT
-        cast(a.fips as int64) as fips,
-        a.county,
-        a.state_name as province_state,
-        'US' as country_region,
-        b.latitude,
-        b.longitude,
-        case
-          when a.state_name is null then 'US'
-          when a.state_name is not null AND a.county is null then concat(a.state_name,', US')
-          when a.county is not null then concat(a.county, ', ', a.state_name, ', US')
-        end as combined_key,
-        cast(a.date as date) as measurement_date,
-        --a.daily_confirmed_cases as confirmed_cumulative,
-        a.confirmed_cases as confirmed_cumulative,
-        a.confirmed_cases - coalesce(
-        LAG(a.confirmed_cases, 1) OVER (
-            PARTITION BY concat(coalesce(a.county,''), coalesce(a.state_name,''), 'US'
-              ) ORDER BY a.date ASC),0) as confirmed_new_cases,
-       --a.daily_confirmed_cases   as confirmed_new_cases,
-        a.deaths as deaths_cumulative,
-        a.deaths - coalesce(
-         LAG(deaths, 1) OVER (
-         PARTITION BY concat(coalesce(a.county,''), coalesce(a.state_name,''), 'US'
-         )  ORDER BY date ASC),0) as deaths_new_cases
-        --a.daily_deaths as deaths_new_cases
-      FROM ${nyt_data.SQL_TABLE_NAME} as a
-      LEFT JOIN (SELECT fips, max(latitude) as latitude, max(longitude) as longitude, count(*) as count FROM public.compatibility_view WHERE fips is not null GROUP BY 1) as b
-        ON cast(a.fips as string) = cast(b.fips as string)
+   SELECT *
+FROM (
+  SELECT cast(a.fips AS int) AS fips
+    ,a.county
+    ,a.state_name AS province_state
+    ,'US' AS country_region
+    ,b.latitude
+    ,b.longitude
+    ,CASE
+      WHEN a.state_name IS NULL
+        THEN 'US'
+      WHEN a.state_name IS NOT NULL
+        AND a.county IS NULL
+        THEN
+            a.state_name
+            ||', US'
+
+      WHEN a.county IS NOT NULL
+        THEN
+            a.county
+            ||', '
+            ||a.state_name
+            ||', US'
+
+      END AS combined_key
+    ,cast(a.DATE AS DATE) AS measurement_date
+    ,
+    --a.daily_confirmed_cases as confirmed_cumulative,
+    a.confirmed_cases AS confirmed_cumulative
+    ,a.confirmed_cases - coalesce(LAG(a.confirmed_cases, 1) OVER (
+        PARTITION BY
+          coalesce(a.county, '')
+          ||coalesce(a.state_name, '')
+          ||'US'
+           ORDER BY a.DATE ASC
+        ), 0) AS confirmed_new_cases
+    ,
+    --a.daily_confirmed_cases   as confirmed_new_cases,
+    a.deaths AS deaths_cumulative
+    ,a.deaths - coalesce(LAG(deaths, 1) OVER (
+        PARTITION BY
+          coalesce(a.county, '')
+          ||coalesce(a.state_name, '')
+          ||'US'
+           ORDER BY DATE ASC
+        ), 0) AS deaths_new_cases
+  --a.daily_deaths as deaths_new_cases
+  FROM temp_test AS a
+  LEFT JOIN (
+    SELECT fips
+      ,max(latitude) AS latitude
+      ,max(longitude) AS longitude
+      ,count(*) AS count
+    FROM PUBLIC.compatibility_view
+    WHERE fips IS NOT NULL
+    GROUP BY 1
+    ) AS b ON cast(a.fips AS varchar) = cast(b.fips AS varchar)
+
+  UNION ALL
+
+  -- --use the JHU data for non US
+  SELECT NULL AS fips
+    ,cast(NULL AS varchar) AS county
+    ,province_state
+    ,CASE
+      WHEN country_region = 'United Kingdom'
+        THEN 'UK'
+      ELSE country_region
+      END
+    ,latitude
+    ,longitude
+    ,CASE
+      WHEN province_state IS NULL
+        THEN CASE
+            WHEN country_region = 'Mainland China'
+              THEN 'China'
+            ELSE country_region
+            END
+      WHEN province_state IS NOT NULL
+        AND country_region IS NULL
+        THEN
+            province_state
+            ||', '
+            ||CASE
+              WHEN country_region = 'Mainland China'
+                THEN 'China'
+              ELSE country_region
+              END
+
+      END AS combined_key
+    ,cast(DATE AS DATE) AS measurement_date
+    ,confirmed AS confirmed_cumulative
+    ,confirmed - coalesce(LAG(confirmed, 1) OVER (
+        PARTITION BY
+          coalesce(NULL, '')
+          ||coalesce(province_state, '')
+          ||coalesce(country_region, '')
+           ORDER BY DATE ASC
+        ), 0) AS confirmed_new_cases
+    ,deaths AS deaths_cumulative
+    ,deaths - coalesce(LAG(deaths, 1) OVER (
+        PARTITION BY
+          coalesce(NULL, '')
+          ||coalesce(province_state, '')
+          ||coalesce(country_region, '')
+           ORDER BY DATE ASC
+        ), 0) AS deaths_new_cases
+  FROM PUBLIC.compatibility_view
+  WHERE country_region <> 'United States of America'
+  )
+WHERE cast(measurement_date AS DATE) <= (
+    SELECT min(max_date) AS max_date
+    FROM (
+      SELECT max(cast(DATE AS DATE)) AS max_date
+      FROM temp_test
 
       UNION ALL
 
-      -- --use the JHU data for non US
-      SELECT
-      NULL as fips,
-      cast(NULL as string) as county,
-      province_state,
-      case when country_region = 'United Kingdom' then 'UK' else country_region end,
-      latitude,
-      longitude,
-      case
-      when province_state is null then case when country_region = 'Mainland China' then 'China' else country_region end
-      when province_state is not null AND country_region is null then concat(province_state,
-      ', ',case when country_region = 'Mainland China' then 'China' else country_region end)
-      end as combined_key,
-      cast(date as date) as measurement_date,
-      confirmed as confirmed_cumulative,
-      confirmed - coalesce(
-      LAG(confirmed, 1) OVER (
-      PARTITION BY concat(coalesce(NULL,''), coalesce(province_state,''), coalesce(country_region,'')
-      ) ORDER BY date ASC),0) as confirmed_new_cases,
-      deaths as deaths_cumulative,
-      deaths - coalesce(
-      LAG(deaths, 1) OVER (
-      PARTITION BY concat(coalesce(NULL,''), coalesce(province_state,''), coalesce(country_region,'')
-      )  ORDER BY date ASC),0) as deaths_new_cases
-      FROM public.compatibility_view
-      WHERE country_region <> 'United States of America'
-      )
-      WHERE cast(measurement_date as date) <= (SELECT min(max_date) as max_date FROM
-      (
-      SELECT max(cast(date as date)) as max_date FROM ${nyt_data.SQL_TABLE_NAME}
-      UNION ALL
-      SELECT max(cast(date as date)) as max_date FROM  public.compatibility_view
-      ) a);;
+      SELECT max(cast(DATE AS DATE)) AS max_date
+      FROM PUBLIC.compatibility_view
+      ) a
+    );;
   }
 
 
