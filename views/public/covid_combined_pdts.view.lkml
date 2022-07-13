@@ -345,13 +345,13 @@ view: prior_days_cases_covid {
     sql:
         (
             ((${covid_combined.confirmed_running_total}    - 5000) / 50000)*7.0
-          + ((${sum_prior_1_days_confirmed_running_total}  - 5500) / 55000)*6.0
-          + ((${sum_prior_2_days_confirmed_running_total}  - 6000) / 60000)*5.0
-          + ((${sum_prior_3_days_confirmed_running_total}  - 6500) / 65000)*4.0
-          + ((${sum_prior_4_days_confirmed_running_total}  - 7000) / 70000)*3.0
-          + ((${sum_prior_5_days_confirmed_running_total}  - 7500) / 75000)*2.0
-          + ((${sum_prior_6_days_confirmed_running_total}  - 7500) / 75000)
-        );;
+          + ((${sum_prior_1_days_confirmed_running_total}  - 5500) / 50000)*6.0
+          + ((${sum_prior_2_days_confirmed_running_total}  - 6000) / 50000)*5.0
+          + ((${sum_prior_3_days_confirmed_running_total}  - 6500) / 50000)*4.0
+          + ((${sum_prior_4_days_confirmed_running_total}  - 7000) / 50000)*3.0
+          + ((${sum_prior_5_days_confirmed_running_total}  - 7500) / 50000)*2.0
+          + ((${sum_prior_6_days_confirmed_running_total}  - 7500) / 50000)
+        )/28.0;;
     link: {
       label: "Data Source - NYT County Data"
       url: "https://github.com/nytimes/covid-19-data"
