@@ -60,7 +60,17 @@ FROM (
            ORDER BY DATE ASC
         ), 0) AS deaths_new_cases
   --a.daily_deaths as deaths_new_cases
-  FROM ${nyt_data.SQL_TABLE_NAME} AS a
+  FROM
+  (select state_code as state_name, confirmed_cases, deaths, date,
+           case when county = 'Unknown' then county || ' - ' ||state_code else county end as county,
+            case when county = 'Unknown'then NULL
+                --mofifying the FIPS code to match other data
+                when county = 'New York City' then 36125
+                when county = 'Kansas City' then 29095
+                when county_fips_code = '' then null
+                else cast(county_fips_code as integer) end as fips
+        from public.us_counties
+    )    AS a
   LEFT JOIN (
     SELECT fips
       ,max(latitude) AS latitude
