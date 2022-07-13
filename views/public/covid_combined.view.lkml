@@ -224,7 +224,7 @@ WHERE cast(measurement_date AS DATE) <= (
     description: "Use this field to map cases by county"
     map_layer_name: us_counties_fips_nyc
     type: string
-    sql: SUBSTR('00000' || IFNULL(SAFE_CAST(${TABLE}.fips AS varchar), ''), -5) ;;
+    sql: right('00000' || IFNULL(COALESCE(${TABLE}.fips AS varchar), ''), 5) ;;
 #     html: {{ county._value }} ;;
   }
 
