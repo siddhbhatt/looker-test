@@ -167,7 +167,7 @@ view: hospital_bed_summary {
   dimension: fips {
     hidden: yes
     type: number
-    sql: SUBSTR('00000' || IFNULL(SAFE_CAST(${TABLE}.fips AS STRING), ''), -5) ;;
+    sql: SUBSTR('00000' || IFNULL(SAFE_CAST(${TABLE}.fips AS varchar), ''), -5) ;;
   }
 
   dimension: hospital_name {
