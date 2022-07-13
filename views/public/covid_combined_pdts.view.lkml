@@ -928,7 +928,7 @@ view: kpis_by_entity_by_date {
     label: "Days Since (X) Cases"
     description: "Use with the minimum number of cases filter, otherwise the default is 1 case"
     type:  number
-    sql: date_diff(${measurement_date},${outbreak_start_date},  day) + 1 ;;
+    sql: datediff(day,${measurement_date},${outbreak_start_date}) + 1 ;;
   }
 
   parameter: metric_type {
