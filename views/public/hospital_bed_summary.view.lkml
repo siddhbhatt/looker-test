@@ -274,19 +274,19 @@ view: hospital_bed_summary {
   dimension: county_num_icu_beds {
     hidden: yes
     type: number
-    sql: select sum(num_icu_beds) from `lookerdata.covid19_block.hospital_bed_summary` where fips = ${fips};;
+    sql: select sum(num_icu_beds) from public.hospital_bed_summary where fips = ${fips};;
   }
 
   dimension: county_num_licensed_beds {
     hidden: yes
     type: number
-    sql: select sum(num_licensed_beds) from `lookerdata.covid19_block.hospital_bed_summary` where fips = ${fips} ;;
+    sql: select sum(num_licensed_beds) from public.hospital_bed_summary where fips = ${fips} ;;
   }
 
   dimension: county_num_staffed_beds {
     hidden: yes
     type: number
-    sql: select sum(num_staffed_beds) from `lookerdata.covid19_block.hospital_bed_summary` where fips = ${fips} ;;
+    sql: select sum(num_staffed_beds) from public.hospital_bed_summary where fips = ${fips} ;;
   }
 
 #   dimension: estimated_percent_of_covid_cases_of_county_dim {
