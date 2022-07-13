@@ -272,13 +272,13 @@ view: prior_days_cases_covid {
 
 
   #All of these metrics require having date selected, or filtered to a single date.
-  measure: sum_prior_1_days_confirmed_running_total { type:sum hidden:yes sql: ${prior_1_days_confirmed_running_total};;}
-  measure: sum_prior_2_days_confirmed_running_total { type:sum hidden:yes sql: ${prior_2_days_confirmed_running_total};;}
-  measure: sum_prior_3_days_confirmed_running_total { type:sum hidden:yes sql: ${prior_3_days_confirmed_running_total};;}
-  measure: sum_prior_4_days_confirmed_running_total { type:sum hidden:yes sql: ${prior_4_days_confirmed_running_total};;}
-  measure: sum_prior_5_days_confirmed_running_total { type:sum hidden:yes sql: ${prior_5_days_confirmed_running_total};;}
-  measure: sum_prior_6_days_confirmed_running_total { type:sum hidden:yes sql: ${prior_6_days_confirmed_running_total};;}
-  measure: sum_prior_7_days_confirmed_running_total { type:sum hidden:yes sql: ${prior_7_days_confirmed_running_total};;}
+  measure: sum_prior_1_days_confirmed_running_total { type:sum hidden:no sql: ${prior_1_days_confirmed_running_total};;}
+  measure: sum_prior_2_days_confirmed_running_total { type:sum hidden:no sql: ${prior_2_days_confirmed_running_total};;}
+  measure: sum_prior_3_days_confirmed_running_total { type:sum hidden:no sql: ${prior_3_days_confirmed_running_total};;}
+  measure: sum_prior_4_days_confirmed_running_total { type:sum hidden:no sql: ${prior_4_days_confirmed_running_total};;}
+  measure: sum_prior_5_days_confirmed_running_total { type:sum hidden:no sql: ${prior_5_days_confirmed_running_total};;}
+  measure: sum_prior_6_days_confirmed_running_total { type:sum hidden:no sql: ${prior_6_days_confirmed_running_total};;}
+  measure: sum_prior_7_days_confirmed_running_total { type:sum hidden:no sql: ${prior_7_days_confirmed_running_total};;}
 
   measure: sum_prior_1_days_deaths_running_total { type:sum hidden:yes sql: ${prior_1_days_deaths_running_total};;}
   measure: sum_prior_2_days_deaths_running_total { type:sum hidden:yes sql: ${prior_2_days_deaths_running_total};;}
