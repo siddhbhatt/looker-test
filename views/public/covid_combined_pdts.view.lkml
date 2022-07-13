@@ -344,13 +344,13 @@ view: prior_days_cases_covid {
     value_format_name: percent_1
     sql:
         (
-            ((${covid_combined.confirmed_running_total}    - ${sum_prior_1_days_confirmed_running_total}) / coalesce(${sum_prior_1_days_confirmed_running_total},1))*7.0
-          + ((${sum_prior_1_days_confirmed_running_total}                 - ${sum_prior_2_days_confirmed_running_total}) / coalesce(${sum_prior_2_days_confirmed_running_total}),1)*6.0
-          + ((${sum_prior_2_days_confirmed_running_total}                 - ${sum_prior_3_days_confirmed_running_total}) / coalesce(${sum_prior_3_days_confirmed_running_total}),1)*5.0
-          + ((${sum_prior_3_days_confirmed_running_total}                 - ${sum_prior_4_days_confirmed_running_total}) / coalesce(${sum_prior_4_days_confirmed_running_total}),1)*4.0
-          + ((${sum_prior_4_days_confirmed_running_total}                 - ${sum_prior_5_days_confirmed_running_total}) / coalesce(${sum_prior_5_days_confirmed_running_total}),1)*3.0
-          + ((${sum_prior_5_days_confirmed_running_total}                 - ${sum_prior_6_days_confirmed_running_total}) / coalesce(${sum_prior_6_days_confirmed_running_total}),1)*2.0
-          + ((${sum_prior_6_days_confirmed_running_total}                 - ${sum_prior_7_days_confirmed_running_total}) / coalesce(${sum_prior_7_days_confirmed_running_total}),1)
+            ((${covid_combined.confirmed_running_total}    - ${sum_prior_1_days_confirmed_running_total}) / NULLIF(${sum_prior_1_days_confirmed_running_total},1))*7.0
+          + ((${sum_prior_1_days_confirmed_running_total}                 - ${sum_prior_2_days_confirmed_running_total}) / NULLIF(${sum_prior_2_days_confirmed_running_total}),1)*6.0
+          + ((${sum_prior_2_days_confirmed_running_total}                 - ${sum_prior_3_days_confirmed_running_total}) / NULLIF(${sum_prior_3_days_confirmed_running_total}),1)*5.0
+          + ((${sum_prior_3_days_confirmed_running_total}                 - ${sum_prior_4_days_confirmed_running_total}) / NULLIF(${sum_prior_4_days_confirmed_running_total}),1)*4.0
+          + ((${sum_prior_4_days_confirmed_running_total}                 - ${sum_prior_5_days_confirmed_running_total}) / NULLIF(${sum_prior_5_days_confirmed_running_total}),1)*3.0
+          + ((${sum_prior_5_days_confirmed_running_total}                 - ${sum_prior_6_days_confirmed_running_total}) / NULLIF(${sum_prior_6_days_confirmed_running_total}),1)*2.0
+          + ((${sum_prior_6_days_confirmed_running_total}                 - ${sum_prior_7_days_confirmed_running_total}) / NULLIF(${sum_prior_7_days_confirmed_running_total}),1)
         )/28.0;;
     link: {
       label: "Data Source - NYT County Data"
