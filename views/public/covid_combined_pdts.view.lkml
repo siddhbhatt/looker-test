@@ -344,13 +344,13 @@ view: prior_days_cases_covid {
     value_format_name: percent_1
     sql:
         (
-            ((${covid_combined.confirmed_running_total}    - 75000) / (50000))*0.007
-          + ((${sum_prior_1_days_confirmed_running_total}  - 75500) / (55000))*0.006
-          + ((${sum_prior_2_days_confirmed_running_total}  - 76000) / (55000))*0.005
-          + ((${sum_prior_3_days_confirmed_running_total}  - 76500) / (55000))*0.004
-          + ((${sum_prior_4_days_confirmed_running_total}  - 77000) / (55000))*0.003
-          + ((${sum_prior_5_days_confirmed_running_total}  - 77500) / (55000))*0.002
-          + ((${sum_prior_6_days_confirmed_running_total}  - 77500) / (55000))*0.001
+            ((${covid_combined.confirmed_running_total}    - 75000) / (50000))*0.0007
+          + ((${sum_prior_1_days_confirmed_running_total}  - 75500) / (55000))*0.0006
+          + ((${sum_prior_2_days_confirmed_running_total}  - 76000) / (55000))*0.0005
+          + ((${sum_prior_3_days_confirmed_running_total}  - 76500) / (55000))*0.0004
+          + ((${sum_prior_4_days_confirmed_running_total}  - 77000) / (55000))*0.0003
+          + ((${sum_prior_5_days_confirmed_running_total}  - 77500) / (55000))*0.0002
+          + ((${sum_prior_6_days_confirmed_running_total}  - 77500) / (55000))*0.0001
         )/28.0;;
     link: {
       label: "Data Source - NYT County Data"
