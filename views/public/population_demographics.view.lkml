@@ -71,10 +71,10 @@ view: population_demographics {
       ) a
       LEFT JOIN
       (
-        SELECT geo_id, area_land_meters FROM public.utility_us.us_county_area` UNION ALL
-        SELECT cast(36125 as string) as geo_id, sum(area_land_meters) as area_land_meters FROM public.utility_us.us_county_area` WHERE cast(geo_id as int64) in (36005, 36081, 36061, 36047, 36085) GROUP BY 1
+        SELECT geo_id, area_land_meters FROM public.us_county_area` UNION ALL
+        SELECT cast(36125 as varchar) as geo_id, sum(area_land_meters) as area_land_meters FROM public.us_county_area` WHERE cast(geo_id as int4) in (36005, 36081, 36061, 36047, 36085) GROUP BY 1
       )  b
-        ON cast(a.fips as string) = cast(b.geo_id as string)
+        ON cast(a.fips as varchar) = cast(b.geo_id as varchar)
     ;;
   }
 
@@ -82,9 +82,9 @@ view: population_demographics {
     primary_key: yes
     hidden: yes
     type: string
-    sql: case when ${country_region} = 'United Kingdom' then
-                concat(coalesce(${county},''), coalesce(${province_state},''), 'UK')
-                else concat(coalesce(${county},''), coalesce(${province_state},''), coalesce(${country_region},'')) end;;
+    sql: case  ${country_region} WHEN 'United Kingdom' then
+                (coalesce(${county},'')|| coalesce(${province_state},'')|| 'UK')
+                else (coalesce(${county},'')|| coalesce(${province_state},'')|| coalesce(${country_region},'')) end;;
   }
 
   dimension: count2 {
@@ -155,7 +155,7 @@ view: population_demographics {
   measure: population_density {
     description: "People per 1000 Sq. Kilometers"
     type: number
-    sql: 1000000.0*${sum_population}/nullif(${sum_area_land_meters},0) ;;
+    sql: 1000000.0*${sum_population}/coalesce(${sum_area_land_meters},0) ;;
     value_format_name: decimal_1
     link: {
       label: "Data Source - American Community Survey Data (ACS)"

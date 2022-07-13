@@ -11,7 +11,7 @@ view: open_data_main {
       WITH odm AS (
           SELECT
             location_key,
-            SUBSTR(SPLIT(location_key, "US_")[OFFSET(1)],0,2) as state,
+            left(SPLIT_PART(location_key,'_',2),2) as state,,
             subregion1_name as state_name,
             subregion2_name,
             date as measurement_date,
@@ -30,7 +30,7 @@ view: open_data_main {
             new_persons_fully_vaccinated,
             cumulative_persons_fully_vaccinated,
             new_vaccine_doses_administered,
-            cumulative_vaccine_doses_administered,
+            cumulative_vaccine_doses_administered
           FROM public.covid19_open_data
           WHERE location_key LIKE 'US_%')
         SELECT * FROM odm
@@ -46,7 +46,7 @@ view: open_data_main {
     ]
     convert_tz: no
     datatype: date
-    sql: parse_date('%Y-%m-%d',cast(${TABLE}.measurement_date as string));;
+    sql: to_date(cast(${TABLE}.measurement_date as string),'YYYYMMDD');;
   }
 
   dimension: location_key {
@@ -71,7 +71,7 @@ view: open_data_main {
     primary_key: yes
     hidden: yes
     type: string
-    sql: concat(${TABLE}.location_key, ${measurement_date}) ;;
+    sql: (${TABLE}.location_key|| ${measurement_date}) ;;
   }
 
   measure: max_date {

@@ -21,7 +21,7 @@ view: open_data {
   dimension: od_pk {
     hidden: yes
     primary_key: yes
-    sql: CONCAT(${combined_key}, ${TABLE}.date) ;;
+    sql: (${combined_key}|| ${TABLE}.date) ;;
   }
 
   measure: count {
