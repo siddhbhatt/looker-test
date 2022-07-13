@@ -344,13 +344,13 @@ view: prior_days_cases_covid {
     value_format_name: percent_1
     sql:
         (
-            ((${covid_combined.confirmed_running_total}    - ${sum_prior_1_days_confirmed_running_total}-50000) / NULLIF((${sum_prior_1_days_confirmed_running_total}),0))*17.0
-          + ((${sum_prior_1_days_confirmed_running_total}  - ${sum_prior_2_days_confirmed_running_total}-55000) / NULLIF((${sum_prior_2_days_confirmed_running_total}),0))*16.0
-          + ((${sum_prior_2_days_confirmed_running_total}  - ${sum_prior_3_days_confirmed_running_total}-60000) / NULLIF((${sum_prior_3_days_confirmed_running_total}),0))*15.0
-          + ((${sum_prior_3_days_confirmed_running_total}  - ${sum_prior_4_days_confirmed_running_total}-65000) / NULLIF((${sum_prior_4_days_confirmed_running_total}),0))*14.0
-          + ((${sum_prior_4_days_confirmed_running_total}  - ${sum_prior_5_days_confirmed_running_total}-70000) / NULLIF((${sum_prior_5_days_confirmed_running_total}),0))*13.0
-          + ((${sum_prior_5_days_confirmed_running_total}  - ${sum_prior_6_days_confirmed_running_total}-75000) / NULLIF((${sum_prior_6_days_confirmed_running_total}),0))*12.0
-          + ((${sum_prior_6_days_confirmed_running_total}  - ${sum_prior_7_days_confirmed_running_total}-75000) / NULLIF((${sum_prior_7_days_confirmed_running_total}),0))
+            ((${covid_combined.confirmed_running_total}    - 50000) / 50000)*7.0
+          + ((${sum_prior_1_days_confirmed_running_total}  - 55000) / 55000)*6.0
+          + ((${sum_prior_2_days_confirmed_running_total}  - 60000) / 60000)*5.0
+          + ((${sum_prior_3_days_confirmed_running_total}  - 65000) / 65000)*4.0
+          + ((${sum_prior_4_days_confirmed_running_total}  - 70000) / 70000)*3.0
+          + ((${sum_prior_5_days_confirmed_running_total}  - 75000) / 75000)*2.0
+          + ((${sum_prior_6_days_confirmed_running_total}  - 75000) / 75000)
         );;
     link: {
       label: "Data Source - NYT County Data"
