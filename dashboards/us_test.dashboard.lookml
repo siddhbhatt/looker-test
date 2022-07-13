@@ -18,7 +18,7 @@
     dynamic_fields: [{table_calculation: yesterday, label: Yesterday, expression: 'offset(${covid_combined.confirmed_running_total},1)',
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}, {table_calculation: vs_prior_day, label: vs. Prior Day,
-        expression: "${covid_combined.confirmed_running_total}-${yesterday}", value_format: !!null '',
+        expression: "0.2342-${yesterday}", value_format: !!null '',
         value_format_name: decimal_0, _kind_hint: measure, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
