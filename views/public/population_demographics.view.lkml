@@ -61,20 +61,21 @@ view: population_demographics {
       SELECT a.*, b.area_land_meters
       FROM
       (
-         SELECT * FROM public.population_by_county_state_country_core WHERE county <> 'New York City' UNION ALL
-         SELECT * FROM public.population_by_county_state_country_core WHERE country_region <> 'US'
+         SELECT fips,county,province_state,country_region,population,count FROM public.population_by_county_state_country_core WHERE county <> 'New York City' UNION ALL
+         SELECT fips,county,province_state,country_region,population,count FROM public.population_by_county_state_country_core WHERE country_region <> 'US'
           and not (country_region = 'France' and province_state is not null)
           and not (country_region = 'United Kingdom' and province_state is not null)
           and not (country_region = 'Netherlands' and province_state is not null)
           UNION ALL
          SELECT 36125 as fips,'New York City' as county,'New York' as province_state,'US' as country_region,8343000 as population, 1 as count
-      ) a
+        ) a
       LEFT JOIN
       (
         SELECT geo_id, area_land_meters FROM public.us_county_area UNION ALL
-        SELECT cast(36125 as varchar) as geo_id, sum(area_land_meters) as area_land_meters FROM public.us_county_area WHERE cast(geo_id as int4) in (36005, 36081, 36061, 36047, 36085) GROUP BY 1
+        SELECT 36125 as geo_id, sum(area_land_meters) as area_land_meters FROM public.us_county_area WHERE cast(geo_id as int4) in (36005, 36081, 36061, 36047, 36085) GROUP BY 1
       )  b
         ON cast(a.fips as varchar) = cast(b.geo_id as varchar)
+
     ;;
   }
 
