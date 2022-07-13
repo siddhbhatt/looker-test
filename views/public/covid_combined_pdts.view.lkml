@@ -344,13 +344,13 @@ view: prior_days_cases_covid {
     value_format_name: percent_1
     sql:
         (
-            ((${covid_combined.confirmed_running_total}    - ${sum_prior_1_days_confirmed_running_total}) / NULLIF(${sum_prior_1_days_confirmed_running_total},0))*7.0
-          + ((${sum_prior_1_days_confirmed_running_total}                 - ${sum_prior_2_days_confirmed_running_total}) / NULLIF(${sum_prior_2_days_confirmed_running_total},0))*6.0
-          + ((${sum_prior_2_days_confirmed_running_total}                 - ${sum_prior_3_days_confirmed_running_total}) / NULLIF(${sum_prior_3_days_confirmed_running_total},0))*5.0
-          + ((${sum_prior_3_days_confirmed_running_total}                 - ${sum_prior_4_days_confirmed_running_total}) / NULLIF(${sum_prior_4_days_confirmed_running_total},0))*4.0
-          + ((${sum_prior_4_days_confirmed_running_total}                 - ${sum_prior_5_days_confirmed_running_total}) / NULLIF(${sum_prior_5_days_confirmed_running_total},0))*3.0
-          + ((${sum_prior_5_days_confirmed_running_total}                 - ${sum_prior_6_days_confirmed_running_total}) / NULLIF(${sum_prior_6_days_confirmed_running_total},0))*2.0
-          + ((${sum_prior_6_days_confirmed_running_total}                 - ${sum_prior_7_days_confirmed_running_total}) / NULLIF(${sum_prior_7_days_confirmed_running_total},0))
+            ((80000   - 60000) / 60000)*7.0
+          + ((60000   - 55000) / 55000)*6.0
+          + ((55000   - 50000) / 50000)*5.0
+          + ((50000   - 45000) / 45000)*4.0
+          + ((45000   - 40000) / 40000)*3.0
+          + ((40000   - 15000) / 15000)*2.0
+          + ((15000   - 5000) / 5000)
         )/28.0;;
     link: {
       label: "Data Source - NYT County Data"
