@@ -224,7 +224,7 @@ WHERE cast(measurement_date AS DATE) <= (
     description: "Use this field to map cases by county"
     map_layer_name: us_counties_fips_nyc
     type: string
-    sql: SUBSTR('00000' || IFNULL(SAFE_CAST(${TABLE}.fips AS STRING), ''), -5) ;;
+    sql: SUBSTR('00000' || IFNULL(SAFE_CAST(${TABLE}.fips AS varchar), ''), -5) ;;
 #     html: {{ county._value }} ;;
   }
 
@@ -331,8 +331,8 @@ WHERE cast(measurement_date AS DATE) <= (
   dimension: fips_as_string {
     hidden: yes
     type: string
-    sql: CASE WHEN LENGTH(cast(${fips} as string)) = 4 THEN CONCAT('0',${fips})
-      ELSE cast(${fips} as string) END;;
+    sql: CASE WHEN LENGTH(cast(${fips} as varachar)) = 4 THEN CONCAT('0',${fips})
+      ELSE cast(${fips} as varchar) END;;
   }
 
 
@@ -342,7 +342,7 @@ WHERE cast(measurement_date AS DATE) <= (
     group_label: "Location"
     label: "Country (Ordered)"
     description: "Ordered by confirmed running total of cases"
-    sql: concat(cast(${country_rank.rank} as string),'-',${country_raw}) ;;
+    sql: concat(cast(${country_rank.rank} as varchar),'-',${country_raw}) ;;
     html: {{ country_region._value }} ;;
   }
 
@@ -350,7 +350,7 @@ WHERE cast(measurement_date AS DATE) <= (
     group_label: "Location"
     label: "State (Ordered)"
     description: "Ordered by confirmed running total of cases"
-    sql: concat(cast(${state_rank.rank} as string),'-',${province_state}) ;;
+    sql: concat(cast(${state_rank.rank} as varchar),'-',${province_state}) ;;
     html: {{ province_state._value }} ;;
   }
 
@@ -358,7 +358,7 @@ WHERE cast(measurement_date AS DATE) <= (
     group_label: "Location"
     label: "County (Ordered)"
     description: "Ordered by confirmed running total of cases"
-    sql: concat(cast(${fips_rank.rank} as string),'-',${fips}) ;;
+    sql: concat(cast(${fips_rank.rank} as varchar),'-',${fips}) ;;
     html: {{ county._value }} ;;
   }
 
