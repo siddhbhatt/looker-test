@@ -60,7 +60,7 @@ FROM (
            ORDER BY DATE ASC
         ), 0) AS deaths_new_cases
   --a.daily_deaths as deaths_new_cases
-  FROM temp_test AS a
+  FROM ${nyt_data.SQL_TABLE_NAME} AS a
   LEFT JOIN (
     SELECT fips
       ,max(latitude) AS latitude
