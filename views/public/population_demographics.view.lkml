@@ -71,8 +71,8 @@ view: population_demographics {
       ) a
       LEFT JOIN
       (
-        SELECT geo_id, area_land_meters FROM public.us_county_area` UNION ALL
-        SELECT cast(36125 as varchar) as geo_id, sum(area_land_meters) as area_land_meters FROM public.us_county_area` WHERE cast(geo_id as int4) in (36005, 36081, 36061, 36047, 36085) GROUP BY 1
+        SELECT geo_id, area_land_meters FROM public.us_county_area UNION ALL
+        SELECT cast(36125 as varchar) as geo_id, sum(area_land_meters) as area_land_meters FROM public.us_county_area WHERE cast(geo_id as int4) in (36005, 36081, 36061, 36047, 36085) GROUP BY 1
       )  b
         ON cast(a.fips as varchar) = cast(b.geo_id as varchar)
     ;;
