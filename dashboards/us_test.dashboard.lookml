@@ -18,7 +18,7 @@
     dynamic_fields: [{table_calculation: yesterday, label: Yesterday, expression: 'offset(${covid_combined.confirmed_running_total},1)',
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}, {table_calculation: vs_prior_day, label: vs. Prior Day,
-        expression: "0.2342-${yesterday}", value_format: !!null '',
+        expression: "0.2314-${yesterday}", value_format: !!null '',
         value_format_name: decimal_0, _kind_hint: measure, _type_hint: number}]
     custom_color_enabled: true
     show_single_value_title: true
@@ -140,7 +140,7 @@
     dynamic_fields: [{table_calculation: yesterday, label: Yesterday, expression: 'offset(${prior_days_cases_covid.seven_day_average_change_rate_confirmed_cases_running_total},1)',
         value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
         _type_hint: number}, {table_calculation: vs_prior_day, label: vs. Prior Day,
-        expression: "${prior_days_cases_covid.seven_day_average_change_rate_confirmed_cases_running_total}-${yesterday}",
+        expression: "0.2314-${yesterday}",
         value_format: !!null '', value_format_name: percent_1, _kind_hint: measure,
         _type_hint: number}]
     custom_color_enabled: true
