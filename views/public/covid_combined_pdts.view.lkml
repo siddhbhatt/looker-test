@@ -344,13 +344,13 @@ view: prior_days_cases_covid {
     value_format_name: percent_1
     sql:
         (
-            ((${covid_combined.confirmed_running_total}    - 35000) / 50000)*7.0
-          + ((${sum_prior_1_days_confirmed_running_total}  - 45500) / 50000)*6.0
-          + ((${sum_prior_2_days_confirmed_running_total}  - 46000) / 50000)*5.0
-          + ((${sum_prior_3_days_confirmed_running_total}  - 46500) / 50000)*4.0
-          + ((${sum_prior_4_days_confirmed_running_total}  - 47000) / 50000)*3.0
-          + ((${sum_prior_5_days_confirmed_running_total}  - 47500) / 50000)*2.0
-          + ((${sum_prior_6_days_confirmed_running_total}  - 47500) / 50000)
+            ((${covid_combined.confirmed_running_total}    - 75000) / 50000)*7.0
+          + ((${sum_prior_1_days_confirmed_running_total}  - 75500) / 50000)*6.0
+          + ((${sum_prior_2_days_confirmed_running_total}  - 76000) / 50000)*5.0
+          + ((${sum_prior_3_days_confirmed_running_total}  - 76500) / 50000)*4.0
+          + ((${sum_prior_4_days_confirmed_running_total}  - 77000) / 50000)*3.0
+          + ((${sum_prior_5_days_confirmed_running_total}  - 77500) / 50000)*2.0
+          + ((${sum_prior_6_days_confirmed_running_total}  - 77500) / 50000)
         )/28.0;;
     link: {
       label: "Data Source - NYT County Data"
