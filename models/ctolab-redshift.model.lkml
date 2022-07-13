@@ -5,7 +5,7 @@ connection: "ctolab-redshift"
 include: "/views/**/*.view"
 # include: "//covid19-1/views/country_region.view"
 
-include: "/dashboards/world_test.*"
+include: "/dashboards/*"
 include: "/explores/*"
 
 include: "//covid19-1/assets/*"
