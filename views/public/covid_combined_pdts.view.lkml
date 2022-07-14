@@ -731,6 +731,7 @@ view: prior_days_cases_covid {
 
 view: kpis_by_county_by_date {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     explore_source: covid_combined {
       column: county_full {}
@@ -758,6 +759,7 @@ view: kpis_by_county_by_date {
 
 view: kpis_by_state_by_date {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     explore_source: covid_combined {
       column: state_full {}
@@ -777,7 +779,7 @@ view: kpis_by_state_by_date {
       column: doubling_time_deaths_rolling_total_per_million { field: prior_days_cases_covid.doubling_time_deaths_rolling_total_per_million }
       filters: {
         field: covid_combined.province_state
-        value: "-NULL"
+        value: "NOT NULL"
       }
     }
   }
@@ -785,6 +787,7 @@ view: kpis_by_state_by_date {
 
 view: kpis_by_country_by_date {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     explore_source: covid_combined {
       column: country_region {}
@@ -804,7 +807,7 @@ view: kpis_by_country_by_date {
       column: doubling_time_deaths_rolling_total_per_million { field: prior_days_cases_covid.doubling_time_deaths_rolling_total_per_million }
       filters: {
         field: covid_combined.country_region
-        value: "-NULL"
+        value: "NOT NULL"
       }
     }
   }
@@ -812,6 +815,7 @@ view: kpis_by_country_by_date {
 
 view: kpis_by_entity_by_date {
   derived_table: {
+    distribution_style: all
     datagroup_trigger: covid_data
     sql:
 
