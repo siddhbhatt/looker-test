@@ -1,5 +1,10 @@
 include: "/views/public/*"
 
+include: "/views/**/*.view"
+include: "/dashboards/*"
+include: "/explores/*"
+include: "//covid19-1/assets/*"
+
 ### Main Covid Explore ######
 
 explore: covid_combined {

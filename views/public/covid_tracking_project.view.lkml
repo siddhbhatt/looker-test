@@ -1,5 +1,6 @@
 #This data was brought in to show testing data from the COVID19 Tracing project - https://covidtracking.com/
 
+
 view: covid_tracking_project {
   derived_table: {
     distribution_style: all
@@ -45,7 +46,7 @@ view: covid_tracking_project {
   dimension: pk {
     primary_key: yes
     hidden: yes
-    sql: (${state}|| ${measurement_raw}) ;;
+    sql: concat(${state}, ${measurement_raw}) ;;
   }
 
 ## Date & Location

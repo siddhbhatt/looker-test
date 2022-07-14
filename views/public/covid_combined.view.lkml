@@ -1,5 +1,6 @@
 # include: "/dashboards/*.dashboard.lookml"
 
+
 include: "//covid19-1/dashboards/*"
 
 # The county level data shows NYT + JHU, NYT is used for US county level data and JHU data is used for international data
@@ -139,7 +140,7 @@ FROM (
       FROM (
       SELECT max(cast(DATE AS DATE)) AS max_date
       FROM
-       (select state_code as state_name, confirmed_cases, deaths, date,
+      (select state_code as state_name, confirmed_cases, deaths, date,
       case when county = 'Unknown' then county || ' - ' ||state_code else county end as county,
       case when county = 'Unknown'then NULL
       --mofifying the FIPS code to match other data
