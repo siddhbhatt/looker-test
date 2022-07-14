@@ -1,136 +1,13 @@
-# # The name of this view in Looker is "Hospital Bed Summary"
-# view: hospital_bed_summary {
-#   # The sql_table_name parameter indicates the underlying database table
-#   # to be used for all fields in this view.
-#   sql_table_name: public.hospital_bed_summary ;;
-#   # No primary key is defined for this view. In order to join this view in an Explore,
-#   # define primary_key: yes on a dimension that has no repeated values.
-
-#   # Here's what a typical dimension looks like in LookML.
-#   # A dimension is a groupable field that can be used to filter query results.
-#   # This dimension will be called "Bed Utilization" in Explore.
-
-#   dimension: bed_utilization {
-#     type: string
-#     sql: ${TABLE}.bed_utilization ;;
-#   }
-
-#   dimension: cnty_fips {
-#     type: number
-#     sql: ${TABLE}.cnty_fips ;;
-#   }
-
-#   dimension: county_name {
-#     type: string
-#     sql: ${TABLE}.county_name ;;
-#   }
-
-#   dimension: fips {
-#     type: number
-#     sql: ${TABLE}.fips ;;
-#   }
-
-#   dimension: hospital_name {
-#     type: string
-#     sql: ${TABLE}.hospital_name ;;
-#   }
-
-#   dimension: hospital_type {
-#     type: string
-#     sql: ${TABLE}.hospital_type ;;
-#   }
-
-#   dimension: hq_address {
-#     type: string
-#     sql: ${TABLE}.hq_address ;;
-#   }
-
-#   dimension: hq_address1 {
-#     type: string
-#     sql: ${TABLE}.hq_address1 ;;
-#   }
-
-#   dimension: hq_city {
-#     type: string
-#     sql: ${TABLE}.hq_city ;;
-#   }
-
-#   dimension: hq_state {
-#     type: string
-#     sql: ${TABLE}.hq_state ;;
-#   }
-
-#   dimension: hq_zip_code {
-#     type: string
-#     sql: ${TABLE}.hq_zip_code ;;
-#   }
-
-#   dimension: num_icu_beds {
-#     type: number
-#     sql: ${TABLE}.num_icu_beds ;;
-#   }
-
-#   dimension: num_licensed_beds {
-#     type: number
-#     sql: ${TABLE}.num_licensed_beds ;;
-#   }
-
-#   dimension: num_staffed_beds {
-#     type: number
-#     sql: ${TABLE}.num_staffed_beds ;;
-#   }
-
-#   dimension: objectid {
-#     type: number
-#     value_format_name: id
-#     sql: ${TABLE}.objectid ;;
-#   }
-
-#   dimension: potential_increase_in_bed_capac {
-#     type: string
-#     sql: ${TABLE}.potential_increase_in_bed_capac ;;
-#   }
-
-#   dimension: state_fips {
-#     type: number
-#     sql: ${TABLE}.state_fips ;;
-#   }
-
-#   dimension: state_name {
-#     type: string
-#     sql: ${TABLE}.state_name ;;
-#   }
-
-#   dimension: x {
-#     type: string
-#     sql: ${TABLE}.x ;;
-#   }
-
-#   dimension: y {
-#     type: string
-#     sql: ${TABLE}.y ;;
-#   }
-
-#   measure: count {
-#     type: count
-#     drill_fields: [state_name, county_name, hospital_name]
-#   }
-# }
-
-
-#This view calculates thing like how many beds are available in different geograhies and estimates how many beds are being utilized
-
-#source: defitinitve healthcare, https://opendata.arcgis.com/datasets/1044bb19da8d4dbfb6a96eb1b4ebf629_0.csv
 
 view: hospital_bed_summary {
   derived_table: {
-    distribution_style: all
-    datagroup_trigger: covid_data
+        datagroup_trigger: covid_data
     #combining NYC fips codes to match other data
     sql:  SELECT x, y, objectid, hospital_name, hospital_type, hq_address, hq_address1, hq_city, hq_state, hq_zip_code, county_name, state_name, state_fips, cnty_fips, num_licensed_beds, num_staffed_beds, num_icu_beds, bed_utilization,
             case when cast(fips as integer) in ( 36005, 36081, 36061, 36047, 36085 ) then 36125 else cast(fips as integer) end as fips
             FROM public.hospital_bed_summary
             WHERE hospital_type not in ('Rehabilitation Hospital', 'Psychiatric Hospital', 'Religious Non-Medical Health Care Institution') ;;
+    distribution_style: all
   }
 
 
