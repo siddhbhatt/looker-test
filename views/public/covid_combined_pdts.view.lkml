@@ -1,6 +1,7 @@
 ### This view file has several different PDTs that calculate metrics like ranks and comparisons of geographies
 
 
+
 ####################
 ### Max Dates
 ####################
@@ -25,6 +26,7 @@ view: max_date_covid {
 }
 
 view: max_date_tracking_project {
+
   derived_table: {
     distribution_style: all
     datagroup_trigger: covid_data

@@ -1,4 +1,5 @@
 # open_data_main (New!) Pulls in data from the [COVID-19 Open Data project](https://github.com/GoogleCloudPlatform/covid-19-open-data)
+
 # and reports on testing, hospitalizations, and vaccination progress in the US.
 
 view: open_data_main {

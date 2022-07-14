@@ -45,7 +45,7 @@ view: covid_tracking_project {
   dimension: pk {
     primary_key: yes
     hidden: yes
-    sql: concat(${state}, ${measurement_raw}) ;;
+    sql: (${state}|| ${measurement_raw}) ;;
   }
 
 ## Date & Location

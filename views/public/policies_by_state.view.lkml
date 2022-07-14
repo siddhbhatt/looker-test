@@ -11,9 +11,9 @@ view: policies_by_state {
     sql:
     SELECT
         state
-      , CASE  Bar__Restaurant_Limits WHEN '-' THEN 'None' ELSE Bar__Restaurant_Limits END as Bar__Restaurant_Limits
+      , CASE  Bar_Restaurant_Limits WHEN '-' THEN 'None' ELSE Bar_Restaurant_Limits END as Bar__Restaurant_Limits
       , CASE  Mandatory_Quarantine WHEN NULL THEN 'None' ELSE Mandatory_Quarantine END as Mandatory_Quarantine
-      , CASE  Non_Essential_Business_Closures WHEN '-' THEN 'None' ELSE Non_Essential_Business_Closures END as Non_Essential_Business_Closures
+      , CASE  NonEssential_Business_Closures WHEN '-' THEN 'None' ELSE NonEssential_Business_Closures END as NonEssential_Business_Closures
       , Primary_Election_Postponement
       --, CASE WHEN State_Mandated_School_Closures = '-' THEN 'None' ELSE State_Mandated_School_Closures END as State_Mandated_School_Closures
       , CASE  Large_Gatherings_Ban WHEN '-' THEN 'None' ELSE Large_Gatherings_Ban END as Large_Gatherings_Ban
@@ -21,16 +21,16 @@ view: policies_by_state {
       , CASE  Free_Cost_Vaccine_When_Available WHEN '-' THEN 'No policy' ELSE Free_Cost_Vaccine_When_Available END as Free_Cost_Vaccine_When_Available
       , CASE  State_Requires_Waiver_of_Prior_Authorization_Requirements WHEN '-' THEN 'No policy' ELSE State_Requires_Waiver_of_Prior_Authorization_Requirements END as State_Requires_Waiver_of_Prior_Authorization_Requirements
       , CASE  Early_Prescription_Refills WHEN '-' THEN 'No policy' ELSE Early_Prescription_Refills END as Early_Prescription_Refills
-      , CASE  Marketplace_Special_Enrollment_Period__SEP_ WHEN '-' THEN 'No policy' ELSE Marketplace_Special_Enrollment_Period__SEP_ END as Marketplace_Special_Enrollment_Period__SEP_
+      , CASE  Marketplace_Special_Enrollment_Period_SEP WHEN '-' THEN 'No policy' ELSE Marketplace_Special_Enrollment_Period_SEP END as Marketplace_Special_Enrollment_Period_SEP_
       , CASE  Section_1135_Waiver WHEN '-' THEN 'Not approved' ELSE Section_1135_Waiver END as Section_1135_Waiver
       , CASE  Paid_Sick_Leave WHEN '-' THEN 'No policy' ELSE Paid_Sick_Leave END as Paid_Sick_Leave
     FROM
     (
       SELECT
           coalesce(a.Location,b.Location)  as state
-        , a.Restaurant_Limits as Bar__Restaurant_Limits
+        , a.Restaurant_Limits as Bar_Restaurant_Limits
         , a.Mandatory_Quarantine_for_Travelers as Mandatory_Quarantine
-        , a.Non_Essential_Business_Closures
+        , a.NonEssential_Business_Closures
         , a.Primary_Election_Postponement
         --, a.State_Mandated_School_Closures
         , a.Large_Gatherings_Ban
@@ -38,7 +38,7 @@ view: policies_by_state {
         , b.Free_Cost_Vaccine_When_Available
         , b.State_Requires_Waiver_of_Prior_Authorization_Requirements
         , b.Early_Prescription_Refills
-        , b.Marketplace_Special_Enrollment_Period__SEP_
+        , b.Marketplace_Special_Enrollment_Period_SEP
         , b.Section_1135_Waiver
         , b.Paid_Sick_Leave
       FROM public.state_mitigations a
