@@ -167,45 +167,45 @@ view: hospital_bed_summary {
   dimension: fips {
     hidden: yes
     type: number
-    sql: right('00000' || COALESCE(cast(${TABLE}.fips AS varchar), ''), 5) ;;
+    sql: right('00000' || COALESCE(cast(${TABLE}.fips AS varchar), ''),5) ;;
   }
 
   dimension: hospital_name {
     group_label: "Hospital (US Only)"
     type: string
-    sql: ${TABLE}.HOSPITAL_NAME ;;
+    sql: ${TABLE}.hospital_name ;;
   }
 
   dimension: hospital_type {
     group_label: "Hospital (US Only)"
     type: string
-    sql: ${TABLE}.HOSPITAL_TYPE ;;
+    sql: ${TABLE}.hospital_type ;;
   }
 
   dimension: hq_address {
     group_label: "Hospital (US Only)"
     label: "Hospital Address"
     type: string
-    sql: ${TABLE}.HQ_ADDRESS ;;
+    sql: ${TABLE}.hq_address ;;
   }
 
   dimension: hq_address1 {
     hidden: yes
     type: string
-    sql: ${TABLE}.HQ_ADDRESS1 ;;
+    sql: ${TABLE}.hq_address1 ;;
   }
 
   dimension: hq_city {
     group_label: "Hospital (US Only)"
     label: "Hospital City"
     type: string
-    sql: ${TABLE}.HQ_CITY ;;
+    sql: ${TABLE}.hq_city ;;
   }
 
   dimension: hq_state {
     hidden: yes
     type: string
-    sql: ${TABLE}.HQ_STATE ;;
+    sql: ${TABLE}.hq_state ;;
   }
 
   dimension: hq_zip_code {
@@ -213,19 +213,19 @@ view: hospital_bed_summary {
     label: "Hospital Zip Code"
     value_format_name: id
     type: number
-    sql: ${TABLE}.HQ_ZIP_CODE ;;
+    sql: ${TABLE}.hq_zip_code ;;
   }
 
   dimension: lat {
     hidden: yes
     type: number
-    sql: ${TABLE}.Y ;;
+    sql: ${TABLE}.y ;;
   }
 
   dimension: long {
     hidden: yes
     type: number
-    sql: ${TABLE}.X ;;
+    sql: ${TABLE}.x ;;
   }
 
   dimension: hospital_location {
@@ -238,7 +238,7 @@ view: hospital_bed_summary {
   dimension: state_fips {
     hidden: yes
     type: number
-    sql: ${TABLE}.STATE_FIPS ;;
+    sql: ${TABLE}.state_fips ;;
   }
 
   dimension: state_name {
@@ -250,25 +250,25 @@ view: hospital_bed_summary {
   dimension: num_icu_beds {
     hidden: yes
     type: number
-    sql: ${TABLE}.NUM_ICU_BEDS ;;
+    sql: ${TABLE}.num_icu_beds ;;
   }
 
   dimension: num_licensed_beds {
     hidden: yes
     type: number
-    sql: ${TABLE}.NUM_LICENSED_BEDS ;;
+    sql: ${TABLE}.num_licensed_beds ;;
   }
 
   dimension: num_staffed_beds {
     hidden: yes
     type: number
-    sql: ${TABLE}.NUM_STAFFED_BEDS ;;
+    sql: ${TABLE}.num_staffed_beds ;;
   }
 
   dimension: potential_increase_in_bed_capac {
     hidden: yes
     type: number
-    sql: ${TABLE}.Potential_Increase_In_Bed_Capac ;;
+    sql: ${TABLE}.potential_increase_in_bed_capac ;;
   }
 
   dimension: county_num_icu_beds {
