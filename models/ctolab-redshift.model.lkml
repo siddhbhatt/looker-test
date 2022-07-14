@@ -23,8 +23,8 @@ datagroup: covid_data {
 
 
 explore: state_region {}
-##explore: open_data_main {}
-
+#explore: open_data_main {}
+#explore: covid_tracking_project {}
 explore: hospital_bed_summary {}
 explore: country_region {}
 explore: policies_by_state {}
