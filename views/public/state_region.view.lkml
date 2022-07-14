@@ -63,6 +63,6 @@ view: state_region {
   dimension: state_code {
     hidden: yes
     type: string
-    sql: ${TABLE}.StateCode ;;
+    sql: ${TABLE}.State_Code ;;
   }
 }
