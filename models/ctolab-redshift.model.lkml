@@ -2,7 +2,7 @@
 connection: "ctolab-redshift"
 
 # include all the views
-include: "/views/**/*.view"
+include: "/views/*/*.view"
 # include: "//covid19-1/views/country_region.view"
 
 include: "/dashboards/*"
