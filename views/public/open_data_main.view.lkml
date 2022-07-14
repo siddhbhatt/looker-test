@@ -12,7 +12,7 @@ view: open_data_main {
       WITH odm AS (
           SELECT
             location_key,
-            left(SPLIT_PART(location_key,'_',2),2) as state,,
+            left(SPLIT_PART(location_key,'_',2),2) as state,
             subregion1_name as state_name,
             subregion2_name,
             date as measurement_date,
