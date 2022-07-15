@@ -879,7 +879,7 @@ view: kpis_by_entity_by_date {
   dimension: pk {
     primary_key: yes
     hidden: yes
-    sql: (${entity}||cast(${measurement_date} as string)) ;;
+    sql: (${entity}||cast(${measurement_date} as varchar)) ;;
   }
 
   dimension_group: measurement {

@@ -72,7 +72,7 @@ view: covid_tracking_project {
     ]
     convert_tz: no
     datatype: date
-    sql: parse_date('%Y%m%d',cast(${TABLE}.measurement_date as string));;
+    sql: to_date(cast(${TABLE}.measurement_date as varchar),'YYYYMMDD');;
   }
 
 ### KPIs
